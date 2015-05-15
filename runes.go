@@ -1,27 +1,23 @@
 package runes
 
-import (
-//"unicode"
-)
-
-func CloneRuneSlice(r []rune) []rune {
+func CloneSlice(r []rune) []rune {
 	var res []rune = nil
 	return append(res, r...)
 }
 
-func InsertRuneAt(s []rune, r rune, i int) []rune {
+func InsertAt(s []rune, r rune, i int) []rune {
 	s = append(s, 0)
 	copy(s[i+1:], s[i:])
 	s[i] = r
 	return s
 }
 
-func DeleteRuneAt(s []rune, i int) []rune {
+func DeleteAt(s []rune, i int) []rune {
 	copy(s[i:], s[i+1:])
 	return s[:len(s)-1]
 }
 
-func TrimRunesLeft(r []rune, f func(rune) bool) []rune {
+func TrimLeft(r []rune, f func(rune) bool) []rune {
 	for i := 0; i < len(r); i++ {
 		if !f(r[i]) {
 			return r[i:]
@@ -30,7 +26,7 @@ func TrimRunesLeft(r []rune, f func(rune) bool) []rune {
 	return []rune{}
 }
 
-func TrimRunesRight(r []rune, f func(rune) bool) []rune {
+func TrimRight(r []rune, f func(rune) bool) []rune {
 	for i := len(r) - 1; i >= 0; i-- {
 		if !f(r[i]) {
 			return r[:i+1]
@@ -39,6 +35,6 @@ func TrimRunesRight(r []rune, f func(rune) bool) []rune {
 	return []rune{}
 }
 
-func TrimRunes(r []rune, f func(rune) bool) []rune {
-	return TrimRunesRight(TrimRunesLeft(r, f), f)
+func Trim(r []rune, f func(rune) bool) []rune {
+	return TrimRight(TrimLeft(r, f), f)
 }

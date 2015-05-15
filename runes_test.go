@@ -12,27 +12,27 @@ type testtrim struct {
 }
 
 var testdata_trim = []testtrim{
-	{"123", "123", TrimRunesLeft},
-	{" 123", "123", TrimRunesLeft},
-	{"  123", "123", TrimRunesLeft},
-	{"   ", "", TrimRunesLeft},
-	{"", "", TrimRunesLeft},
+	{"123", "123", TrimLeft},
+	{" 123", "123", TrimLeft},
+	{"  123", "123", TrimLeft},
+	{"   ", "", TrimLeft},
+	{"", "", TrimLeft},
 
-	{"456", "456", TrimRunesRight},
-	{"456 ", "456", TrimRunesRight},
-	{"456  ", "456", TrimRunesRight},
-	{"   ", "", TrimRunesRight},
-	{"", "", TrimRunesRight},
+	{"456", "456", TrimRight},
+	{"456 ", "456", TrimRight},
+	{"456  ", "456", TrimRight},
+	{"   ", "", TrimRight},
+	{"", "", TrimRight},
 
-	{"789", "789", TrimRunes},
-	{"789 ", "789", TrimRunes},
-	{"789  ", "789", TrimRunes},
-	{" 789", "789", TrimRunes},
-	{"  789", "789", TrimRunes},
-	{" 789 ", "789", TrimRunes},
-	{"  789  ", "789", TrimRunes},
-	{"   ", "", TrimRunes},
-	{"", "", TrimRunes},
+	{"789", "789", Trim},
+	{"789 ", "789", Trim},
+	{"789  ", "789", Trim},
+	{" 789", "789", Trim},
+	{"  789", "789", Trim},
+	{" 789 ", "789", Trim},
+	{"  789  ", "789", Trim},
+	{"   ", "", Trim},
+	{"", "", Trim},
 }
 
 func TestTrim(t *testing.T) {
@@ -61,19 +61,19 @@ var testdata_id = []testinsertdel{
 
 func TestInsertDelete(t *testing.T) {
 	for i, tst := range testdata_id {
-		data := CloneRuneSlice([]rune(tst.data))
+		data := CloneSlice([]rune(tst.data))
 
 		if tst.insert_expected != "ignore" {
-			res := string(InsertRuneAt(data, 'x', tst.index))
+			res := string(InsertAt(data, 'x', tst.index))
 			if res != tst.insert_expected {
 				t.Fatalf("Insert Rune Test: [%d] Expected: [%s] Got: [%s]",
 					i, tst.insert_expected, res)
 			}
 		}
 
-		data = CloneRuneSlice([]rune(tst.data))
+		data = CloneSlice([]rune(tst.data))
 		if tst.delete_expected != "ignore" {
-			res := string(DeleteRuneAt(data, tst.index))
+			res := string(DeleteAt(data, tst.index))
 			if res != tst.delete_expected {
 				t.Fatalf("Delete Rune Test: [%d] Expected: [%s] Got: [%s]",
 					i, tst.delete_expected, res)

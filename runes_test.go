@@ -81,3 +81,30 @@ func TestInsertDelete(t *testing.T) {
 		}
 	}
 }
+
+type testinsertslice struct {
+	data            string
+	insert_expected string
+	index           int
+}
+
+var testdata_is = []testinsertslice{
+	{"123", "xxx123", 0},
+	{"123", "1xxx23", 1},
+	{"123", "12xxx3", 2},
+	{"123", "123xxx", 3},
+}
+
+func TestInsertSlice(t *testing.T) {
+	for i, tst := range testdata_is {
+		data := CloneSlice([]rune(tst.data))
+
+		if tst.insert_expected != "ignore" {
+			res := string(InsertSliceAt(data, []rune("xxx"), tst.index))
+			if res != tst.insert_expected {
+				t.Fatalf("Insert Rune Slice Test: [%d] Expected: [%s] Got: [%s]",
+					i, tst.insert_expected, res)
+			}
+		}
+	}
+}

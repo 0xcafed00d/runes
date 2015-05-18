@@ -12,6 +12,10 @@ func InsertAt(s []rune, r rune, i int) []rune {
 	return s
 }
 
+func InsertSliceAt(s, r []rune, i int) []rune {
+	return append(s[:i], append(r, s[i:]...)...)
+}
+
 func DeleteAt(s []rune, i int) []rune {
 	copy(s[i:], s[i+1:])
 	return s[:len(s)-1]

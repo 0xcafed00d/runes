@@ -1,8 +1,7 @@
 package runes
 
 func CloneSlice(r []rune) []rune {
-	var res []rune = nil
-	return append(res, r...)
+	return append([]rune(nil), r...)
 }
 
 func InsertAt(s []rune, r rune, i int) []rune {
@@ -14,6 +13,11 @@ func InsertAt(s []rune, r rune, i int) []rune {
 
 func InsertSliceAt(s, r []rune, i int) []rune {
 	return append(s[:i], append(r, s[i:]...)...)
+}
+
+func CutSliceAt(s []rune, i, cnt int) ([]rune, []rune) {
+	cut := CloneSlice(s[i : i+cnt])
+	return append(s[:i], s[i+cnt:]...), cut
 }
 
 func DeleteAt(s []rune, i int) []rune {

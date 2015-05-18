@@ -83,9 +83,9 @@ func TestInsertDelete(t *testing.T) {
 }
 
 type testinsertslice struct {
-	data            string
-	insert_expected string
-	index           int
+	data     string
+	expected string
+	index    int
 }
 
 var testdata_is = []testinsertslice{
@@ -98,13 +98,40 @@ var testdata_is = []testinsertslice{
 func TestInsertSlice(t *testing.T) {
 	for i, tst := range testdata_is {
 		data := CloneSlice([]rune(tst.data))
+		res := string(InsertSliceAt(data, []rune("xxx"), tst.index))
+		if res != tst.expected {
+			t.Fatalf("Insert Rune Slice Test: [%d] Expected: [%s] Got: [%s]",
+				i, tst.expected, res)
+		}
+	}
+}
 
-		if tst.insert_expected != "ignore" {
-			res := string(InsertSliceAt(data, []rune("xxx"), tst.index))
-			if res != tst.insert_expected {
-				t.Fatalf("Insert Rune Slice Test: [%d] Expected: [%s] Got: [%s]",
-					i, tst.insert_expected, res)
-			}
+type testcut struct {
+	data         string
+	expected     string
+	expected_cut string
+	index        int
+	count        int
+}
+
+var testdata_cut = []testcut{
+	{"123456", "123456", "", 0, 0},
+	{"123456", "23456", "1", 0, 1},
+	{"123456", "3456", "12", 0, 2},
+	{"123456", "456", "123", 0, 3},
+	{"123456", "56", "1234", 0, 4},
+	{"123456", "6", "12345", 0, 5},
+	{"123456", "", "123456", 0, 6},
+}
+
+func TestCutSlice(t *testing.T) {
+	for i, tst := range testdata_cut {
+		data := CloneSlice([]rune(tst.data))
+		res, cut := CutSliceAt(data, tst.index, tst.count)
+
+		if string(res) != tst.expected || string(cut) != tst.expected_cut {
+			t.Fatalf("Insert Rune Slice Test: [%d] Expected: [%s,%s] Got: [%s,%s]",
+				i, tst.expected, tst.expected_cut, string(res), string(cut))
 		}
 	}
 }

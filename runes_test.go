@@ -1,6 +1,7 @@
 package runes
 
 import (
+	"github.com/simulatedsimian/assert"
 	"testing"
 	"unicode"
 )
@@ -142,5 +143,7 @@ func TestCutSlice(t *testing.T) {
 }
 
 func TestConcat(t *testing.T) {
-
+	assert.Equal(t, Concat(), []rune(nil))
+	assert.Equal(t, Concat([]rune("aa")), []rune("aa"))
+	assert.Equal(t, Concat([]rune("aa"), []rune("bb"), []rune("cc")), []rune("aabbcc"))
 }

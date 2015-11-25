@@ -6,6 +6,21 @@ func CloneSlice(r []rune) []rune {
 	return append([]rune(nil), r...)
 }
 
+// Concat joins a number of rune slices together
+func Concat(r ...[]rune) []rune {
+	if len(r) == 0 {
+		return []rune(nil)
+	} else if len(r) == 1 {
+		return r[0]
+	} else {
+		res := CloneSlice(r[0])
+		for _, v := range r[1:] {
+			res = append(res, v...)
+		}
+		return res
+	}
+}
+
 // InsertAt inserts the rune r into the slice s at index i.
 // All runes after index i are moved one position right, growing the slice by one rune
 // the modified slice is returned

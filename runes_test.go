@@ -140,3 +140,7 @@ func TestCutSlice(t *testing.T) {
 		}
 	}
 }
+
+func TestConcat(t *testing.T) {
+
+}
